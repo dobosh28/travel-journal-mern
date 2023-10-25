@@ -8,6 +8,7 @@ const { isProduction } = require("./config/keys");
 
 const usersRouter = require("./routes/api/users");
 const journalsRouter = require("./routes/api/journals");
+const csrfRouter = require("./routes/api/csrf");
 
 const app = express();
 
@@ -39,5 +40,6 @@ app.use(
 // Express Routes
 app.use("/api/users", usersRouter);
 app.use("/api/journals", journalsRouter);
+app.use("/api/csrf", csrfRouter);
 
 module.exports = app;
