@@ -11,7 +11,7 @@ const UserSchema = new Schema(
       lowercase: true,
       required: true,
       validate: {
-        function(email) {
+        validator: function (email) {
           // Simple email regex for validation
           return /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email);
         },
@@ -26,7 +26,7 @@ const UserSchema = new Schema(
       trim: true,
       required: true,
       validate: {
-        function(username) {
+        validator: function (username) {
           // Simple username regex for validation
           return /^[a-zA-Z0-9_]+$/.test(username); // No spaces allowed
         },
@@ -38,15 +38,14 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       validate: {
-        function(password) {
+        validator: function (password) {
           // Password should be at least 8 characters, include at least one number and one special character
           return /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(
             password
           );
         },
+        message: `Password must be at least 8 characters, include at least one number and one special character!`,
       },
-      message:
-        "Password should be at least 8 characters, include at least one number and one special character.",
     },
   },
   {
