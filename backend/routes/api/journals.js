@@ -1,33 +1,38 @@
 const express = require("express");
 const router = express.Router();
 
-router.post("/", (req, res, next) => {
-  res.json({
-    message: "POST /api/journals",
-  });
-});
-
+// GET all journals
 router.get("/", (req, res, next) => {
   res.json({
-    message: "GET /api/journals",
+    message: "GET all journals",
   });
 });
 
+// GET a single journal
 router.get("/:id", (req, res, next) => {
   res.json({
-    message: "GET /api/journals/:id",
+    message: "GET a single journal",
   });
 });
 
+// POST a new journal
+router.post("/", (req, res, next) => {
+  res.json({
+    message: "POST a new journal",
+  });
+});
+
+// UPDATE a single journal
 router.patch("/:id", (req, res, next) => {
   res.json({
-    message: "PATCH /api/journals/:id",
+    message: "UPDATE a journal",
   });
 });
 
+// DELETE a single journal
 router.delete("/:id", (req, res, next) => {
   res.json({
-    message: "DELETE /api/journals/:id",
+    message: "DELETE a journal",
   });
 });
 

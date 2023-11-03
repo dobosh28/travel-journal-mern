@@ -9,7 +9,7 @@ const { loginUser } = require("../../config/passport");
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.json({
-    message: "GET /api/users",
+    message: "GET all users",
   });
 });
 
