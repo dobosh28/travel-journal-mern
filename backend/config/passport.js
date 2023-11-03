@@ -10,11 +10,14 @@ passport.use(
   new LocalStrategy(
     {
       session: false,
-      usernameField: "email",
+      usernameField: "login",
       passwordField: "password",
     },
-    async function (email, password, done) {
-      const user = await User.findOne({ email });
+    async function (login, password, done) {
+      // Find the user by username or email
+      const user = await User.findOne({
+        $or: [{ email: login }, { username: login }],
+      });
 
       if (user) {
         bcrypt.compare(password, user.hashedPassword, (err, isMatch) => {
@@ -28,7 +31,7 @@ passport.use(
   )
 );
 
-exports.loginUser = async function(user) {
+exports.loginUser = async function (user) {
   const userInfo = {
     _id: user._id,
     username: user.username,
@@ -37,10 +40,10 @@ exports.loginUser = async function(user) {
   const token = await jwt.sign(
     userInfo, // payload
     secretOrKey, // sign with secretOrKey
-    { expiresIn: 3600 }, // expires in 1 hour
+    { expiresIn: 3600 } // expires in 1 hour
   );
   return {
     user: userInfo,
-    token
+    token,
   };
 };
