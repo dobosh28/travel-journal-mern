@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const passport = require("passport");
 const { loginUser } = require("../../config/passport");
-const validateRegisterInput = require("../../validation/register");
-const validateLoginInput = require("../../validation/login");
+const validateRegisterInput = require("../../validations/register");
+const validateLoginInput = require("../../validations/login");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
