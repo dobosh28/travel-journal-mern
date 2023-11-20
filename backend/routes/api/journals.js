@@ -55,10 +55,20 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // POST a new journal
-router.post("/", (req, res, next) => {
-  res.json({
-    message: "POST a new journal",
-  });
+router.post("/", requireUser, validateJournalInput, async (req, res, next) => {
+  try {
+    const newJournal = new Journal({
+      title: req.body.title,
+      content: req.body.content,
+      author: req.user._id,
+    });
+
+    let journal = await newJournal.save();
+    journal = await journal.populate("author", "_id username");
+    return res.json(journal);
+  } catch (err) {
+    next(err);
+  }
 });
 
 // UPDATE a single journal
